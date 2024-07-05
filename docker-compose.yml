@@ -10,7 +10,7 @@ services:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
     volumes:
-      - ./mongodb_data:/data/db
+      - mongodb_data:/data/db
     networks:
       - mongo_network
     restart: unless-stopped
@@ -35,8 +35,8 @@ services:
     depends_on:
       - mongodb
 
-# volumes:
-#   mongodb_data:
+volumes:
+  mongodb_data:
 
 networks:
   mongo_network:
