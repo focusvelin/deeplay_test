@@ -11,7 +11,7 @@ fi
 export $(cat .env)
 
 #Defining variables
-CONTAINER_NAME="mongodb"
+CONTAINER_NAME=${MONGO_CONTAINER_NAME}
 BACKUP_DIR="./backup"
 USER=${MONGO_USER}
 PASSWORD=${MONGO_PASSWORD}
