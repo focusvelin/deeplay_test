@@ -14,6 +14,12 @@ services:
     networks:
       - mongo_network
     restart: unless-stopped
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo localhost:27017/test --quiet
+      interval: 10s
+      timeout: 10s
+      retries: 2
+      start_period: 10s
 
   adminmongo:
     image: mrvautin/adminmongo:latest
@@ -34,7 +40,8 @@ services:
       - mongo_network
     restart: unless-stopped
     depends_on:
-      - mongodb
+      mongodb:
+        condition: service_healthy
 
 volumes:
   mongodb_data:
