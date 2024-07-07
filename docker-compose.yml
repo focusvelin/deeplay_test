@@ -3,9 +3,9 @@ version: '3'
 services:
   mongodb:
     image: mongo:4.4.6
-    container_name: mongodb
+    container_name: ${MONGO_CONTAINER_NAME}
     ports:
-      - ${MONGO_PORT}
+      - ${MONGO_PORT}:${MONGO_PORT}
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
@@ -15,7 +15,7 @@ services:
       - mongo_network
     restart: unless-stopped
     healthcheck:
-      test: echo 'db.runCommand("ping").ok' | mongo localhost:27017/test --quiet
+      test: echo 'db.runCommand("ping").ok' | mongo localhost:${MONGO_PORT}/${MONGO_DATABASE_NAME} --quiet
       interval: 10s
       timeout: 10s
       retries: 2
@@ -23,19 +23,18 @@ services:
 
   adminmongo:
     image: mrvautin/adminmongo:latest
-    container_name: adminmongo
+    container_name: ${ADMIN_CONTAINER_NAME}
     entrypoint: ["/bin/sh", "-c", "chmod -R u+x /app/user/node_modules; node app.js"]
-    
     ports:
-      - ${ADMINMONGO_PORT}
+      - ${ADMINMONGO_PORT}:${ADMINMONGO_PORT}
     environment:
-      HOST: adminmongo
-      CONN_NAME: "AdminConn"
+      HOST: ${ADMIN_CONTAINER_NAME}
+      CONN_NAME: "TestConnection"
       DB_USERNAME: ${MONGO_USER}
       DB_PASSWORD: ${MONGO_PASSWORD}
-      DB_HOST: mongodb
-      DB_PORT: 27017
-      DB_NAME: admin
+      DB_HOST: ${MONGO_CONTAINER_NAME}
+      DB_PORT: ${MONGO_PORT}
+      DB_NAME: ${MONGO_DATABASE_NAME}
     networks:
       - mongo_network
     restart: unless-stopped
