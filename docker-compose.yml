@@ -18,6 +18,7 @@ services:
   adminmongo:
     image: mrvautin/adminmongo:latest
     container_name: adminmongo
+    entrypoint: ["/bin/sh", "-c", "chmod -R u+x /app/user/node_modules; node app.js"]
     
     ports:
       - ${ADMINMONGO_PORT}
