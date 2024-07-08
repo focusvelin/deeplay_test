@@ -13,8 +13,8 @@ export $(cat .env)
 #Defining variables
 CONTAINER_NAME=${MONGO_CONTAINER_NAME}
 BACKUP_FILE=$1
-USER=${MONGO_USER}
-PASSWORD=${MONGO_PASSWORD}
+USER=${MONGO_INITDB_ROOT_USERNAME}
+PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
 
 #Checking if a backup file is provided
 if [ -z "${BACKUP_FILE}" ]

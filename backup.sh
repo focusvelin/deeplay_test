@@ -13,8 +13,8 @@ export $(cat .env)
 #Defining variables
 CONTAINER_NAME=${MONGO_CONTAINER_NAME}
 BACKUP_DIR="./backup"
-USER=${MONGO_USER}
-PASSWORD=${MONGO_PASSWORD}
+USER=${MONGO_INITDB_ROOT_USERNAME}
+PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
 
 #Checking if container exists and running
 if [ -z `docker-compose ps -q ${CONTAINER_NAME}` ] || [ -z `docker ps -q --no-trunc | grep $(docker-compose ps -q ${CONTAINER_NAME})` ]
