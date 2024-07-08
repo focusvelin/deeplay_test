@@ -68,13 +68,15 @@ The rebuild script stops the containers, removes them, and then rebuilds and sta
 The main configuration file is 'docker-compose.yml'. You can adjust the settings  for each service, including port mappings, environment variables, and volumes.
 ### Environment variables
 You can configure environment variables in the '.env' file. Here are variables:
-- `MONGO_CONTAINER_NAME`
-- `MONGO_DATABASE_NAME`
-- `MONGO_USER`
-- `MONGO_PASSWORD`
-- `MONGO_PORT`
-- `ADMIN_CONTAINER_NAME`
-- `ADMINMONGO_PORT`
+- `MONGO_CONTAINER_NAME` - MongoDB container name
+- `MONGO_DATABASE_NAME` - Initial database name
+- `MONGO_INITDB_ROOT_USERNAME` - Root username for MongoDB
+- `MONGO_INITDB_ROOT_PASSWORD` - Root password for MongoDB
+- `MONGO_USER` - Initial user name
+- `MONGO_PASSWORD` - Initial user password
+- `MONGO_PORT` - Port that MongoDB will listen to
+- `ADMIN_CONTAINER_NAME` - AdminMongo container name
+- `ADMINMONGO_PORT` - Port that AdminMongo will listen to
 
 ## Project structure
 ```
@@ -83,6 +85,8 @@ deeplay_test/
 ├── backup.sh
 ├── restore.sh
 ├── rebuild.sh
+├── init-mongo.sh
+│   └── ... (Script that mongo will run when started to initialize user)
 ├── backup/
 │   └── ... (MongoDB backup files)
 ├── .env
